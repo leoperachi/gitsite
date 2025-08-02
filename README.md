@@ -1,124 +1,114 @@
-# Site Pessoal - Leo Perachi
+# Leo Perachi - Personal Website
 
-Um site pessoal moderno e responsivo inspirado no design do Henry Heffernan, focado em apresentar suas informações do GitHub e LinkedIn.
+Um site pessoal moderno e interativo com animação do sistema solar em Three.js, sistema de internacionalização e design responsivo.
 
-## 🚀 Características
+## 🌟 Características
 
-- **Design Moderno**: Interface limpa e elegante com gradientes e animações suaves
-- **Totalmente Responsivo**: Funciona perfeitamente em desktop, tablet e mobile
-- **Animações Interativas**: Efeitos de hover, scroll suave e animações de entrada
-- **Performance Otimizada**: Carregamento rápido e código otimizado
-- **Acessibilidade**: Design acessível com suporte a leitores de tela
+- **Animação 3D**: Sistema solar interativo com Three.js
+- **Internacionalização**: Suporte para português e inglês
+- **Design Responsivo**: Adaptável a todos os dispositivos
+- **Elementos Interativos**: Imagem de perfil e WhatsApp flutuantes
+- **Animações Suaves**: Efeitos de hover e transições
+
+## 🚀 Tecnologias Utilizadas
+
+- **HTML5**: Estrutura semântica
+- **CSS3**: Estilos modernos com variáveis CSS
+- **JavaScript**: Interatividade e animações
+- **Three.js**: Renderização 3D do sistema solar
+- **Font Awesome**: Ícones
+- **Google Fonts**: Tipografia Inter
+
+## 📱 Funcionalidades
+
+### Sistema Solar Interativo
+- Planetas orbitando o Sol em tempo real
+- Controles de câmera (zoom, rotação)
+- Estrelas de fundo com efeito de brilho
+- Responsivo a mouse e touch
+
+### Internacionalização
+- Botões de idioma com bandeiras
+- Tradução completa do conteúdo
+- Persistência da preferência do usuário
+- Suporte para português e inglês
+
+### Elementos Flutuantes
+- Imagem de perfil no canto superior esquerdo
+- Ícone do WhatsApp no canto inferior direito
+- Posicionamento absoluto responsivo
+
+## 🌐 Deploy
+
+O site está publicado no GitHub Pages e pode ser acessado em:
+**https://leoperachi.github.io/gitsite/**
+
+## 🛠️ Como Executar Localmente
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/leoperachi/gitsite.git
+cd gitsite
+```
+
+2. Abra o arquivo `index.html` em um navegador
+
+3. Ou use um servidor local:
+```bash
+python -m http.server 8000
+# ou
+npx serve .
+```
 
 ## 📁 Estrutura do Projeto
 
 ```
 gitsite/
-├── index.html          # Página principal
-├── styles.css          # Estilos CSS
-├── script.js           # JavaScript interativo
-└── README.md           # Documentação
+├── index.html              # Página principal
+├── styles.css              # Estilos CSS
+├── script.js               # JavaScript e Three.js
+├── README.md               # Documentação
+└── .github/workflows/      # GitHub Actions
+    └── deploy.yml          # Workflow de deploy
 ```
 
 ## 🎨 Personalização
 
-### Informações Pessoais
-
-Edite o arquivo `index.html` para personalizar:
-
-1. **Nome**: Substitua "Leo Perachi" pelo seu nome
-2. **Descrição**: Atualize a descrição na seção hero
-3. **Sobre**: Modifique o texto da seção "Sobre Mim"
-4. **Habilidades**: Adicione ou remova habilidades na seção skills
-5. **Links Sociais**: Atualize os links do GitHub e LinkedIn
-6. **Contato**: Modifique email e localização
-
 ### Cores e Estilo
-
-No arquivo `styles.css`, você pode personalizar as cores editando as variáveis CSS:
-
+Edite as variáveis CSS em `styles.css`:
 ```css
 :root {
-  --primary-color: #2563eb; /* Cor principal */
-  --secondary-color: #1e40af; /* Cor secundária */
-  --accent-color: #3b82f6; /* Cor de destaque */
-  --text-primary: #1f2937; /* Texto principal */
-  --text-secondary: #6b7280; /* Texto secundário */
-  --bg-primary: #ffffff; /* Fundo principal */
-  --bg-secondary: #f9fafb; /* Fundo secundário */
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --accent-color: #3b82f6;
 }
 ```
 
-### Gradientes
-
-Para alterar os gradientes, modifique:
-
-```css
---gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
---gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-```
-
-## 🛠️ Como Usar
-
-1. **Clone ou baixe** os arquivos para seu computador
-2. **Personalize** as informações no `index.html`
-3. **Ajuste as cores** no `styles.css` se desejar
-4. **Abra o `index.html`** em um navegador para visualizar
+### Conteúdo
+- **Nome**: Altere "Leo Perachi" no HTML
+- **Links**: Atualize GitHub e LinkedIn
+- **WhatsApp**: Modifique o número no link
+- **Traduções**: Edite o objeto `translations` no JavaScript
 
 ## 📱 Responsividade
 
-O site é totalmente responsivo e se adapta a diferentes tamanhos de tela:
+O site é totalmente responsivo e se adapta a:
+- **Desktop**: Layout completo
+- **Tablet**: Layout adaptado
+- **Mobile**: Layout otimizado para touch
+- **Landscape**: Aproveitamento de espaço horizontal
 
-- **Desktop**: Layout completo com duas colunas
-- **Tablet**: Layout adaptado para telas médias
-- **Mobile**: Layout em coluna única otimizado para touch
+## 🔧 Configuração do GitHub Pages
 
-## 🎯 Funcionalidades
-
-### Navegação
-
-- Menu fixo no topo
-- Scroll suave entre seções
-- Links de navegação no footer
-
-### Animações
-
-- Efeito de digitação no título principal
-- Animações de entrada para elementos
-- Efeitos de hover em botões e links
-- Parallax suave no hero
-
-### Interatividade
-
-- Header transparente que muda no scroll
-- Botões com efeitos de hover
-- Links sociais com animações
-- Menu mobile para dispositivos pequenos
-
-## 🔧 Tecnologias Utilizadas
-
-- **HTML5**: Estrutura semântica
-- **CSS3**: Estilos modernos com variáveis CSS
-- **JavaScript**: Interatividade e animações
-- **Font Awesome**: Ícones
-- **Google Fonts**: Tipografia Inter
-
-## 📝 Licença
-
-Este projeto é de uso livre. Sinta-se à vontade para modificar e usar conforme suas necessidades.
-
-## 🤝 Contribuições
-
-Sugestões e melhorias são sempre bem-vindas! Sinta-se à vontade para:
-
-- Reportar bugs
-- Sugerir novas funcionalidades
-- Melhorar a documentação
-- Otimizar o código
+1. O repositório está configurado com GitHub Actions
+2. Deploy automático na branch `main`
+3. Site disponível em `https://leoperachi.github.io/gitsite/`
 
 ## 📞 Contato
 
-Para dúvidas ou sugestões sobre este projeto, entre em contato através dos links sociais no site.
+- **GitHub**: [@leoperachi](https://github.com/leoperachi)
+- **LinkedIn**: [Leo Perachi](https://linkedin.com/in/leoperachi)
+- **WhatsApp**: Disponível no site
 
 ---
 
