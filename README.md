@@ -22,18 +22,21 @@ Um site pessoal moderno e interativo com animação do sistema solar em Three.js
 ## 📱 Funcionalidades
 
 ### Sistema Solar Interativo
+
 - Planetas orbitando o Sol em tempo real
 - Controles de câmera (zoom, rotação)
 - Estrelas de fundo com efeito de brilho
 - Responsivo a mouse e touch
 
 ### Internacionalização
+
 - Botões de idioma com bandeiras
 - Tradução completa do conteúdo
 - Persistência da preferência do usuário
 - Suporte para português e inglês
 
 ### Elementos Flutuantes
+
 - Imagem de perfil no canto superior esquerdo
 - Ícone do WhatsApp no canto inferior direito
 - Posicionamento absoluto responsivo
@@ -46,6 +49,7 @@ O site está publicado no GitHub Pages e pode ser acessado em:
 ## 🛠️ Como Executar Localmente
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/leoperachi/gitsite.git
 cd gitsite
@@ -54,6 +58,7 @@ cd gitsite
 2. Abra o arquivo `index.html` em um navegador
 
 3. Ou use um servidor local:
+
 ```bash
 python -m http.server 8000
 # ou
@@ -75,7 +80,9 @@ gitsite/
 ## 🎨 Personalização
 
 ### Cores e Estilo
+
 Edite as variáveis CSS em `styles.css`:
+
 ```css
 :root {
   --primary-color: #2563eb;
@@ -85,6 +92,7 @@ Edite as variáveis CSS em `styles.css`:
 ```
 
 ### Conteúdo
+
 - **Nome**: Altere "Leo Perachi" no HTML
 - **Links**: Atualize GitHub e LinkedIn
 - **WhatsApp**: Modifique o número no link
@@ -93,6 +101,7 @@ Edite as variáveis CSS em `styles.css`:
 ## 📱 Responsividade
 
 O site é totalmente responsivo e se adapta a:
+
 - **Desktop**: Layout completo
 - **Tablet**: Layout adaptado
 - **Mobile**: Layout otimizado para touch
