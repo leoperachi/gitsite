@@ -159,7 +159,6 @@ body {
 /* Canvas Three.js */
 .threejs-canvas {
   position: absolute;
-  top: 0;
   left: 10%;
   width: 90%;
   height: 100%;
@@ -194,7 +193,6 @@ body {
 }
 
 .hero-text {
-  max-width: 600px;
 }
 
 .hero-title {
@@ -202,7 +200,7 @@ body {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1.5rem;
-  width: 120%;
+  width: 100%;
 }
 
 .highlight {
@@ -526,7 +524,6 @@ body {
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 15px;
   }
 
   .hero-title {
@@ -647,21 +644,28 @@ html {
 /* Melhoria na responsividade do Three.js */
 @media (max-width: 768px) {
   .threejs-canvas {
-    opacity: 0.7;
+    left: 0 !important;
+    margin-bottom: 200px !important;
+    bottom: 0 !important;
   }
 
   .profile-image {
-    width: 50px;
-    height: 50px;
-    top: 15px;
-    right: 15px;
+    width: 95px;
+    height: 95px;
+    top: 100px;
+    left: 30px;
   }
 
   .whatsapp-icon {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
+    width: 100px;
+    height: 100px;
+    bottom: 105px !important;
     right: 15px;
+  }
+
+  .hero-content {
+    left: 0px;
+    max-width: 100vw;
   }
 
   .whatsapp-icon a {
@@ -671,14 +675,14 @@ html {
 
 @media (max-width: 480px) {
   .threejs-canvas {
-    opacity: 0.5;
+    opacity: 0.7;
   }
 
   .profile-image {
-    width: 45px;
-    height: 45px;
-    top: 10px;
-    right: 10px;
+    width: 95px;
+    height: 95px;
+    top: 20px;
+    left: 30px;
   }
 
   .whatsapp-icon {
