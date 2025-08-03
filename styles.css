@@ -578,7 +578,7 @@ html {
 /* Imagem do perfil no canto superior direito */
 .profile-image {
   position: fixed;
-  top: 120px;
+  top: 30px;
   left: 120px;
   z-index: 1001;
   width: 200px;
