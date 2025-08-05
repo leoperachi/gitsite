@@ -6,21 +6,21 @@
 }
 
 :root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
+  --primary-color: #27eb16;
+  --secondary-color: #27eb16;
   --accent-color: #3b82f6;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
+  --text-primary: #000000;
+  --text-secondary: #ffffff;
   --text-light: #9ca3af;
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
+  --bg-secondary: #212628;
   --bg-dark: #111827;
   --border-color: #e5e7eb;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-primary: linear-gradient(135deg, #ffffff 0%, #27eb16 100%);
   --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
@@ -29,13 +29,14 @@ body {
     sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
-  background-color: var(--bg-primary);
+  background: var(--bg-secondary);
   overflow-x: hidden;
 }
 
 .container {
   margin: 0 auto;
   padding: 0 0px;
+  background: var(--bg-secondary);
 }
 
 /* Header e Navegação */
@@ -44,7 +45,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgb(255 255 255 / 0%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
@@ -141,7 +142,8 @@ body {
 
 /* Main Content */
 .main {
-  margin-top: 80px;
+  margin-top: 0px;
+  background: #010401;
 }
 
 /* Hero Section */
@@ -159,9 +161,8 @@ body {
 /* Canvas Three.js */
 .threejs-canvas {
   position: absolute;
-  left: 10%;
-  width: 90%;
-  height: 100%;
+  width: 200%;
+  height: 200%;
   z-index: 1;
   pointer-events: auto;
   cursor: grab;
@@ -367,7 +368,7 @@ body {
 /* Contact Section */
 .contact {
   padding: 6rem 0;
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 .contact-content {
@@ -578,7 +579,7 @@ html {
 /* Imagem do perfil no canto superior direito */
 .profile-image {
   position: fixed;
-  top: 30px;
+  top: 130px;
   left: 120px;
   z-index: 1001;
   width: 200px;
@@ -646,14 +647,13 @@ html {
 @media (max-width: 768px) {
   .threejs-canvas {
     left: 0 !important;
-    margin-bottom: 200px !important;
     bottom: 0 !important;
   }
 
   .profile-image {
     width: 95px;
     height: 95px;
-    top: 20px;
+    top: 120px;
     left: 30px;
   }
 
@@ -682,7 +682,7 @@ html {
   .profile-image {
     width: 95px;
     height: 95px;
-    top: 20px;
+    top: 120px;
     left: 30px;
   }
 
