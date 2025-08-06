@@ -663,6 +663,11 @@ html {
     left: 30px;
   }
 
+  .hero-title {
+    font-size: 3rem !important;
+    width: 100% !important;
+  }
+
   .whatsapp-icon {
     width: 100px;
     height: 100px;
