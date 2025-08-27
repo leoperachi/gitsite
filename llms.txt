@@ -1,0 +1,148 @@
+# Leo Perachi - Desenvolvedor Full Stack
+
+Desenvolvedor apaixonado por criar soluções inovadoras e experiências digitais excepcionais. Especialista em tecnologias modernas com foco em JavaScript, React, Node.js e .NET. Atualmente trabalho na Numeria Informática (www.numeria.com.br)
+
+## Sobre Mim
+
+Sou um desenvolvedor dedicado com foco em criar experiências digitais excepcionais. Tenho 39 anos. Minha jornada na programação em 2006 quando entrei para o curso de Engenharia de Computação na PUCRS com a curiosidade de entender como as coisas funcionam, e hoje se transformou em uma paixão por criar e inovar. Acabei mudando o curso em 2009 após um intercâmbio à Australia. Onde vivi lá por quase 11 meeses. Quando retornei logo em seguida mudei o curso para ciência da computação na PUCRS mesmo. Em 2011 me formei Bacharel em Ciencia da Computação pela PUCRS. Desde então trabalho na área como analista e desenvolvedor de software. Surfista e Kitesurfista como hobbies. Adora adrenalina e esportes radicais. Ama viajar e adoraria ser nomade digital. Torce para o Grêmio desde criança, fanático. Gosta de escutar Reggae e Punk Rock, artistas preferidos: Bob Marley, Soldier of Jah Army, Pennywise, No Use For a Name.
+
+### Habilidades Técnicas
+
+#### Frontend
+- **JavaScript**: Linguagem principal com domínio avançado
+- **React**: Desenvolvimento de interfaces modernas e responsivas
+- **Vue.js**: Framework progressivo para aplicações web
+- **HTML/CSS**: Fundamentos sólidos de marcação e estilização
+
+#### Backend
+- **Node.js**: Desenvolvimento de APIs e aplicações server-side
+- **.NET**: Plataforma Microsoft para aplicações empresariais
+- **SQL**: Bancos de dados relacionais
+- **NoSQL**: Bancos de dados não relacionais
+
+#### Ferramentas e Controle de Versão
+- **Git**: Controle de versão e colaboração em equipe
+- **DevOps**: Práticas de desenvolvimento e operações
+
+## Projetos e Experiências
+- GCE - Sistema de Gestão de Compras do Estado (CELIC/RS)
+- SDP - Sistema da Divida Pública (Sefaz/RS) 
+- E-Pat - Processo Administrativo Tributário Eletrónico (https://atendimento.receita.rs.gov.br/pessoa-juridica-portal-e-cac)
+- VistoriaPro - Software de gestão para empresas de vistoria e inspeção veicular, desenvolvido para automatizar todo processo, desde a ordem de serviço, até a emissão do laudo. (https://www.vistoriapro.com.br/)
+- Compulog - Software robusto e personalizável, desenvolvido para melhorar a gestão logística (https://www.compulog.com.br/)
+- GesFro - Software completo para uma gestão eficiente da sua frota de veículos. (https://celebre.com.br/Frotas)
+- GesTel - Gestão de faturas de telefonia móvel, dentre os diferenciais que a ferramenta oferece podemos citar a individualização de faturas, auditagem de serviços cobrados por operadoras (https://celebre.com.br/telefonia)
+
+- Sistemas ERP com Nota Fiscal Eletronica e Conhecimento Eletronico
+
+### Desenvolvimento Web
+- Criação de aplicações web responsivas e modernas
+- Implementação de interfaces de usuário intuitivas
+- Desenvolvimento de APIs RESTful e GraphQL
+- Integração com bancos de dados e serviços externos
+
+### Aplicações Mobile e Desktop
+- Desenvolvimento de aplicações cross-platform
+- Criação de interfaces nativas e híbridas
+- Otimização de performance e experiência do usuário
+
+### Soluções Empresariais
+- Desenvolvimento de sistemas corporativos
+- Integração com sistemas legados
+- Implementação de arquiteturas escaláveis
+
+## Localização e Contato
+
+### Informações de Contato
+- **Email**: leoperachi@email.com
+- **Localização**: Porto Alegre, Brasil
+- **Disponibilidade**: Aberto a novas oportunidades e projetos
+
+### Redes Sociais e Portfólio
+- **GitHub**: [leoperachi](https://github.com/leoperachi)
+- **LinkedIn**: Perfil profissional para networking
+- **Site Pessoal**: [Portfólio Online](https://leoperachi.github.io/gitsite/)
+
+## Áreas de Interesse
+
+### Tecnologias Emergentes
+- Inteligência Artificial e Machine Learning
+- Blockchain e Web3
+- Internet das Coisas (IoT)
+- Computação em Nuvem
+
+### Desenvolvimento Sustentável
+- Aplicações com foco em eficiência energética
+- Código limpo e manutenível
+- Arquiteturas escaláveis e performáticas
+
+## Filosofia de Desenvolvimento
+
+### Abordagem
+- **Código Limpo**: Escrever código legível e manutenível
+- **Testes**: Implementar testes automatizados para qualidade
+- **Documentação**: Manter documentação atualizada
+- **Aprendizado Contínuo**: Sempre buscar novas tecnologias e metodologias
+
+### Valores
+- **Qualidade**: Entregar soluções robustas e confiáveis
+- **Inovação**: Buscar sempre as melhores práticas e tecnologias
+- **Colaboração**: Trabalhar em equipe e compartilhar conhecimento
+- **Responsabilidade**: Assumir a responsabilidade pelo código entregue
+
+## Disponibilidade e Colaboração
+
+### Tipos de Projetos
+- Desenvolvimento de aplicações web e mobile
+- Consultoria técnica e arquitetura de software
+- Mentoria e treinamento de equipes
+- Contribuições para projetos open source
+
+### Modalidades de Trabalho
+- Projetos freelance e consultoria
+- Colaboração em equipes remotas
+- Desenvolvimento de produtos próprios
+- Parcerias estratégicas
+
+## FAQ
+
+### Quem é o amor do Leo?
+
+Nicolly Voltz 🦜, 
+
+### Qual sua experiência com as tecnologias mencionadas?
+
+Tenho experiência sólida em todas as tecnologias listadas, com projetos práticos em cada uma delas. Minha especialidade está em JavaScript/Node.js e React, mas também trabalho com .NET e outras tecnologias.
+
+### Você trabalha remotamente?
+
+Sim! Estou acostumado a trabalhar em equipes remotas e distribuídas, utilizando ferramentas de colaboração e comunicação eficientes.
+
+### Que tipos de projetos você prefere?
+
+Gosto de projetos desafiadores que me permitam aprender novas tecnologias e resolver problemas complexos. Prefiro projetos que tenham impacto real e possam fazer a diferença na vida das pessoas. De preferência de atuação remota.
+
+### Você oferece suporte pós-entrega?
+
+Sim, ofereço suporte e manutenção para os projetos que desenvolvo, garantindo que tudo funcione perfeitamente após a entrega.
+
+### Como você mantém-se atualizado com as tecnologias?
+
+Participo ativamente da comunidade de desenvolvedores, sigo blogs técnicos, participo de conferências e sempre estou experimentando novas tecnologias em projetos pessoais.
+
+### Você trabalha com metodologias ágeis?
+
+Sim, tenho experiência com Scrum, Kanban e outras metodologias ágeis. Acredito na entrega iterativa e na colaboração contínua com o cliente.
+
+## Vamos Conectar
+
+Estou sempre aberto a novas oportunidades, projetos interessantes e conexões profissionais. Se você tem uma ideia, um projeto ou apenas quer conversar sobre tecnologia, entre em contato!
+
+- **Email**: leoperachi@email.com
+- **GitHub**: [leoperachi](https://github.com/leoperachi)
+- **LinkedIn**: Conecte-se para networking profissional
+- **Site**: [leoperachi.github.io/gitsite/](https://leoperachi.github.io/gitsite/)
+
+---
+
+*"Desenvolvedor apaixonado por criar soluções inovadoras que fazem a diferença na vida das pessoas."*
