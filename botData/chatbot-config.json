@@ -1,0 +1,16 @@
+{
+  "primaryColor": "#23A267",
+  "chatbotName": "leoperachi@dev AI Assistant",
+  "buttonColor": "#1D7A4B",
+  "backgroundColor": "#111e16",
+  "headerColor": "#172a21",
+  "userBubble": "#2c4636",
+  "botBubble": "#183224",
+  "userText": "#fff",
+  "botText": "#fff",
+  "iconUrl": "./botData/avatar.webp",
+  "botAvatar": "./botData/avatar.webp",
+  "welcomeBubble": "Olá! como posso te ajudar?",
+  "firstBotMessage": "Me conta, o que você quer saber sobre a leoperachi@dev?",
+  "typingDelay": 0.5
+}
