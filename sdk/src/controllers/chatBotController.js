@@ -20,12 +20,11 @@ export class ChatbotController {
         this.#promptService = promptService;
     }
 
-    async init({ firstBotMessage, text }) {
+    async init({ firstBotMessage }) {
         this.#setupEvents();
         this.#chatbotView.renderWelcomeBubble();
         this.#chatbotView.setInputEnabled(true);
         this.#chatbotView.appendBotMessage(firstBotMessage, null, false);
-        return this.#promptService.init(text)
     }
 
     #setupEvents() {
@@ -37,53 +36,36 @@ export class ChatbotController {
     }
 
     #handleStop() {
+        this.#promptService.stop();
     }
 
     async #chatBotReply(userMsg) {
-        console.log('received', userMsg)
         this.#chatbotView.showTypingIndicator();
         this.#chatbotView.setInputEnabled(false);
 
-        const response = await this.#promptService.prompt(userMsg)
-        console.log('response', response)
-
-        this.#chatbotView.appendBotMessage(response);
-        this.#chatbotView.setInputEnabled(true);
-        this.#chatbotView.hideTypingIndicator();
+        let streamingEl = null;
+        try {
+            for await (const partial of this.#promptService.promptStream(userMsg)) {
+                if (!streamingEl) {
+                    this.#chatbotView.hideTypingIndicator();
+                    streamingEl = this.#chatbotView.createStreamingBotMessage();
+                }
+                this.#chatbotView.updateStreamingBotMessage(streamingEl, partial);
+            }
+        } catch (err) {
+            if (err?.name !== 'AbortError') {
+                console.error(err);
+                this.#chatbotView.appendBotMessage(
+                    '⚠️ Não consegui falar com o servidor de IA agora. Tente novamente em instantes.'
+                );
+            }
+        } finally {
+            this.#chatbotView.hideTypingIndicator();
+            this.#chatbotView.setInputEnabled(true);
+        }
     }
 
     async #onOpen() {
-        const errors = this.#checkRequirements()
-        if (errors.length) {
-            const messages = errors.join('\n\n')
-            this.#chatbotView.appendBotMessage(
-                messages
-            )
-
-
-            this.#chatbotView.setInputEnabled(false);
-            return
-        }
         this.#chatbotView.setInputEnabled(true);
     }
-
-    #checkRequirements() {
-        const errors = []
-        // @ts-ignore
-        const iChrome = window.chrome
-        if (!iChrome) {
-            errors.push(
-                '⚠️ Este recurso só funciona no Google Chrome ou Chrome Canary (versão recente).'
-            )
-        }
-        if (!('LanguageModel' in window)) {
-            errors.push("⚠️ As APIs nativas de IA não estão ativas.");
-            errors.push("Ative a seguinte flag em chrome://flags/:");
-            errors.push("- Prompt API for Gemini Nano (chrome://flags/#prompt-api-for-gemini-nano)");
-            errors.push("Depois reinicie o Chrome e tente novamente.");
-        }
-
-        return errors
-    }
-
 }
