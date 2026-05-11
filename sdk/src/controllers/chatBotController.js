@@ -9,6 +9,8 @@ export class ChatbotController {
 
     #chatbotView;
     #promptService;
+    #firstBotMessageEl = null;
+    #hasUserInteracted = false;
 
     /**
     * @param {Object} deps - Dependencies for the class.
@@ -24,7 +26,15 @@ export class ChatbotController {
         this.#setupEvents();
         this.#chatbotView.renderWelcomeBubble();
         this.#chatbotView.setInputEnabled(true);
-        this.#chatbotView.appendBotMessage(firstBotMessage, null, false);
+        this.#firstBotMessageEl = this.#chatbotView.appendBotMessage(firstBotMessage, null, false);
+    }
+
+    setLanguage(config) {
+        this.#promptService.setConfig(config);
+        this.#chatbotView.updateConfig(config);
+        if (!this.#hasUserInteracted && this.#firstBotMessageEl) {
+            this.#chatbotView.appendBotMessage(config.firstBotMessage, this.#firstBotMessageEl, false);
+        }
     }
 
     #setupEvents() {
@@ -40,6 +50,7 @@ export class ChatbotController {
     }
 
     async #chatBotReply(userMsg) {
+        this.#hasUserInteracted = true;
         this.#chatbotView.showTypingIndicator();
         this.#chatbotView.setInputEnabled(false);
 
@@ -56,6 +67,7 @@ export class ChatbotController {
             if (err?.name !== 'AbortError') {
                 console.error(err);
                 this.#chatbotView.appendBotMessage(
+                    this.#promptService.config?.errorMessage ||
                     '⚠️ Não consegui falar com o servidor de IA agora. Tente novamente em instantes.'
                 );
             }

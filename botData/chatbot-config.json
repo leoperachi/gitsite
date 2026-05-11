@@ -10,8 +10,30 @@
   "botText": "#fff",
   "iconUrl": "./botData/avatar.webp",
   "botAvatar": "./botData/avatar.webp",
-  "welcomeBubble": "Olá! como posso te ajudar?",
+  "welcomeBubble": "Olá! como posso\nte ajudar?",
   "firstBotMessage": "Me conta, o que você quer saber sobre a leoperachi@dev?",
+  "inputPlaceholder": "Digite sua mensagem...",
+  "sendButton": "Enviar",
+  "errorMessage": "⚠️ Não consegui falar com o servidor de IA agora. Tente novamente em instantes.",
+  "responseLanguageInstruction": "Responda sempre em português do Brasil.",
+  "locales": {
+    "pt": {
+      "welcomeBubble": "Olá! como posso\nte ajudar?",
+      "firstBotMessage": "Me conta, o que você quer saber sobre a leoperachi@dev?",
+      "inputPlaceholder": "Digite sua mensagem...",
+      "sendButton": "Enviar",
+      "errorMessage": "⚠️ Não consegui falar com o servidor de IA agora. Tente novamente em instantes.",
+      "responseLanguageInstruction": "Responda sempre em português do Brasil."
+    },
+    "en": {
+      "welcomeBubble": "Hi! how can I\nhelp you?",
+      "firstBotMessage": "Tell me, what would you like to know about leoperachi@dev?",
+      "inputPlaceholder": "Type your message...",
+      "sendButton": "Send",
+      "errorMessage": "⚠️ I couldn't reach the AI server right now. Please try again in a moment.",
+      "responseLanguageInstruction": "Always answer in English."
+    }
+  },
   "typingDelay": 0.5,
   "proxyUrl": "https://swiftp.com.br/ai"
 }

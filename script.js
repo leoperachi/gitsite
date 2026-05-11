@@ -146,6 +146,9 @@ function translatePage(language) {
 
   // Salvar preferência no localStorage
   localStorage.setItem("preferred-language", language);
+  window.dispatchEvent(
+    new CustomEvent("site-language-change", { detail: { language } })
+  );
 }
 
 // Aguarda o carregamento completo da página
@@ -366,6 +369,11 @@ const SPAWN_ZONE = {
   yMax: 0.47, // close to the bottom of the visible canvas area
 };
 
+const COMPACT_MOBILE_SPAWN_ZONE = {
+  yMin: 0.34,
+  yMax: 0.47,
+};
+
 // The navbar is position: fixed on top of the canvas. We measure its real
 // height from the DOM at spawn time and convert it to canvas internal
 // coordinates so the spawn zone always sits below it, regardless of viewport
@@ -388,38 +396,44 @@ function spawnSkillWord() {
   const text = pickNextSkill();
   if (!text) return; // all skills currently on screen
 
+  const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
+  const isCompactMobileViewport = window.matchMedia("(max-width: 700px)").matches;
+
   // Dynamic top: keep text + glow strictly below the navbar.
   const { navBottomCanvasY, navHeightCanvasY } = getNavbarCanvasMetrics();
   const glowPadding = 22; // canvas px of safety for the glow
 
-  const zoneLeftColumn = Math.ceil((canvas.width * SPAWN_ZONE.xMin) / fontSize);
-  const zoneRightColumn = Math.floor((canvas.width * SPAWN_ZONE.xMax) / fontSize);
-  const zoneBottom = canvas.height * SPAWN_ZONE.yMax;
-
-  const zoneTopRow = MatrixSkillRain.getRevealStartRow({
+  const columnRange = MatrixSkillRain.getRevealColumnRange({
+    canvasWidth: canvas.width,
+    fontSize,
+    zoneMinRatio: SPAWN_ZONE.xMin,
+    zoneMaxRatio: SPAWN_ZONE.xMax,
+    textLength: text.length,
+    totalColumns: columns,
+  });
+  const rowZone = isCompactMobileViewport ? COMPACT_MOBILE_SPAWN_ZONE : SPAWN_ZONE;
+  const rowRange = MatrixSkillRain.getRevealRowRange({
     canvasHeight: canvas.height,
     fontSize,
-    zoneMinRatio: SPAWN_ZONE.yMin,
+    zoneMinRatio: rowZone.yMin,
+    zoneMaxRatio: rowZone.yMax,
     navBottomCanvasY,
     navHeightCanvasY,
     glowPadding,
   });
-  const zoneBottomRow = Math.floor(zoneBottom / fontSize);
-  const maxStartColumn = Math.max(
-    zoneLeftColumn,
-    Math.min(zoneRightColumn - text.length, columns - text.length - 1)
-  );
-
   let startColumn = 0;
   let targetRow = 0;
   let placed = false;
   for (let attempt = 0; attempt < 14 && !placed; attempt++) {
     startColumn =
-      zoneLeftColumn +
-      Math.floor(Math.random() * Math.max(maxStartColumn - zoneLeftColumn, 1));
+      columnRange.minColumn +
+      Math.floor(
+        Math.random() *
+          Math.max(columnRange.maxColumn - columnRange.minColumn + 1, 1)
+      );
     targetRow =
-      zoneTopRow +
-      Math.floor(Math.random() * Math.max(zoneBottomRow - zoneTopRow, 1));
+      rowRange.minRow +
+      Math.floor(Math.random() * Math.max(rowRange.maxRow - rowRange.minRow + 1, 1));
 
     placed = !activeReveals.some((reveal) => {
       const sameRow = Math.abs(reveal.targetRow - targetRow) <= 2;
@@ -442,6 +456,8 @@ function spawnSkillWord() {
       startColumn,
       targetRow,
       now: performance.now(),
+      readableDuration: isMobileViewport ? 1600 : undefined,
+      dissolveDuration: isMobileViewport ? 850 : undefined,
     })
   );
 }
@@ -479,7 +495,10 @@ function getRevealForCell(column, row, now, randomGlyph) {
 
 function applyRainStyle(revealGlyph) {
   if (revealGlyph.phase === "readable") {
-    ctx.fillStyle = `rgba(220, 255, 220, ${revealGlyph.alpha})`;
+    const readableAlpha = window.matchMedia("(max-width: 768px)").matches
+      ? Math.min(1, revealGlyph.alpha + 0.12)
+      : revealGlyph.alpha;
+    ctx.fillStyle = `rgba(230, 255, 230, ${readableAlpha})`;
     ctx.shadowColor = "rgba(0, 255, 120, 0.9)";
     ctx.shadowBlur = 10 * revealGlyph.glow;
     return;

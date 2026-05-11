@@ -20,6 +20,7 @@ export class ChatbotView {
         this.#applyTheme();
         this.#setHeader();
         this.#setFloatingIcon();
+        this.#setLabels();
         this.setTypingDotDuration();
     }
 
@@ -63,6 +64,18 @@ export class ChatbotView {
         this.#welcomeBubble = bubble;
     }
 
+    updateConfig(config) {
+        this.#config = config;
+        this.#applyTheme();
+        this.#setHeader();
+        this.#setFloatingIcon();
+        this.#setLabels();
+        this.setTypingDotDuration();
+        if (this.#welcomeBubble) {
+            this.#welcomeBubble.textContent = this.#config.welcomeBubble;
+        }
+    }
+
     hideWelcomeBubble() {
         if (this.#welcomeBubble) this.#welcomeBubble.style.display = 'none';
     }
@@ -79,6 +92,7 @@ export class ChatbotView {
         const el = element || this.#createBotMessage();
         el.innerHTML = this.#renderBotMessageHTML(text, renderMarkdown);
         this.#append(el);
+        return el;
     }
 
     createStreamingBotMessage() {
@@ -166,5 +180,13 @@ export class ChatbotView {
     }
     #setFloatingIcon() {
         this.#floatingIcon.src = this.#config.iconUrl;
+    }
+    #setLabels() {
+        if (this.#config.inputPlaceholder) {
+            this.#input.placeholder = this.#config.inputPlaceholder;
+        }
+        if (this.#config.sendButton) {
+            this.#form.querySelector("button[type=submit]").textContent = this.#config.sendButton;
+        }
     }
 }
