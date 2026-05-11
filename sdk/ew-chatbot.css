@@ -400,11 +400,21 @@
 
 @media (max-width: 500px) {
     .ewcb-chat-window {
+        top: 0;
         right: 0;
+        bottom: 0;
         left: 0;
-        width: 98vw;
+        width: 100vw;
         max-width: none;
-        border-radius: 0 0 18px 18px;
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+        border-radius: 0;
+    }
+
+    .ewcb-chat-header,
+    .ewcb-chat-footer {
+        border-radius: 0;
     }
 }
 
