@@ -147,7 +147,7 @@ function translatePage(language) {
   // Salvar preferência no localStorage
   localStorage.setItem("preferred-language", language);
   window.dispatchEvent(
-    new CustomEvent("site-language-change", { detail: { language } })
+    new CustomEvent("site-language-change", { detail: { language } }),
   );
 }
 
@@ -266,11 +266,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Console log personalizado
   console.log(
     "%c👋 Olá! Bem-vindo ao meu site pessoal!",
-    "color: #2563eb; font-size: 16px; font-weight: bold;"
+    "color: #2563eb; font-size: 16px; font-weight: bold;",
   );
   console.log(
     "%c💻 Desenvolvido com HTML, CSS e JavaScript",
-    "color: #6b7280; font-size: 14px;"
+    "color: #6b7280; font-size: 14px;",
   );
 });
 
@@ -333,6 +333,54 @@ const skills = [
   "C#",
   "VB.NET",
   "ENTITY FRAMEWORK",
+  "VUE.JS",
+  "GIT",
+  "HTML/CSS",
+  "SQL",
+  "NOSQL",
+  "NODE.JS",
+  "MONGO DB",
+  "POSTGRESQL",
+  "MYSQL",
+  "IA",
+  "OLLAMA",
+  "LLMS",
+  "SQL SERVER",
+  "jQuery",
+  "Bootstrap",
+  "Tailwind CSS",
+  "Docker",
+  "AWS",
+  "Azure",
+  "MCP",
+  "Android",
+  "IOS",
+  "Flutter",
+  "React Native",
+  "Python",
+  "PHP",
+  "SCRUM",
+  "AGILE",
+  "SCRUM DEVELOPER",
+  "System Design",
+  "API Design",
+  "API Development",
+  "API Testing",
+  "API Documentation",
+  "API Management",
+  "API Monitoring",
+  "API Security",
+  "API Performance",
+  "System Architecture",
+  "System Analysis",
+  "System Implementation",
+  "System Testing",
+  "System Deployment",
+  "System Maintenance",
+  "System Optimization",
+  "System Security",
+  "System Performance",
+  "System Documentation",
 ];
 
 // Active skill reveals are drawn by the same rain loop, so the words feel
@@ -435,11 +483,13 @@ function spawnSkillWord() {
       columnRange.minColumn +
       Math.floor(
         Math.random() *
-          Math.max(columnRange.maxColumn - columnRange.minColumn + 1, 1)
+          Math.max(columnRange.maxColumn - columnRange.minColumn + 1, 1),
       );
     targetRow =
       rowRange.minRow +
-      Math.floor(Math.random() * Math.max(rowRange.maxRow - rowRange.minRow + 1, 1));
+      Math.floor(
+        Math.random() * Math.max(rowRange.maxRow - rowRange.minRow + 1, 1),
+      );
 
     placed = !activeReveals.some((reveal) => {
       const sameRow = Math.abs(reveal.targetRow - targetRow) <= 2;
@@ -464,7 +514,7 @@ function spawnSkillWord() {
       now: performance.now(),
       readableDuration: isMobileViewport ? 1600 : undefined,
       dissolveDuration: isMobileViewport ? 850 : undefined,
-    })
+    }),
   );
 }
 
@@ -483,7 +533,7 @@ function getRevealForCell(column, row, now, randomGlyph) {
       column,
       row,
       now,
-      randomGlyph
+      randomGlyph,
     );
 
     if (result) {
@@ -537,7 +587,7 @@ function drawRevealCells(now) {
         letter.column,
         letter.row,
         now,
-        () => matrixArray[Math.floor(Math.random() * matrixArray.length)]
+        () => matrixArray[Math.floor(Math.random() * matrixArray.length)],
       );
 
       applyRainStyle(revealGlyph);
@@ -546,7 +596,7 @@ function drawRevealCells(now) {
         ctx.fillText(
           revealGlyph.glyph,
           letter.column * fontSize,
-          letter.row * fontSize
+          letter.row * fontSize,
         );
       }
     }
@@ -581,7 +631,7 @@ function draw() {
       i,
       row,
       now,
-      () => matrixArray[Math.floor(Math.random() * matrixArray.length)]
+      () => matrixArray[Math.floor(Math.random() * matrixArray.length)],
     );
 
     applyRainStyle(revealGlyph);
