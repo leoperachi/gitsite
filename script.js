@@ -312,7 +312,7 @@ const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
 const matrixArray = matrix.split("");
 
 const fontSize = 10;
-const columns = canvas.width / fontSize;
+let columns = Math.floor(canvas.width / fontSize);
 
 // Array to track the y position of each column
 const drops = [];
@@ -320,32 +320,256 @@ for (let x = 0; x < columns; x++) {
   drops[x] = 1;
 }
 
-// Colors
-const colors = ["#0F0", "#0FF", "#F0F", "#FF0", "#F00", "#00F"];
+// Skills to highlight inside the matrix
+const skills = [
+  "FULL STACK DEV",
+  ".NET DEV",
+  "JAVASCRIPT DEV",
+  "REACT",
+  "ASP.NET",
+  "C#",
+  "VB.NET",
+  "ENTITY FRAMEWORK",
+];
+
+// Active skill reveals are drawn by the same rain loop, so the words feel
+// like they are formed by real columns instead of painted over the canvas.
+const activeReveals = [];
+let nextWordAt = performance.now() + 400;
+
+// Cursor into the skills list so we cycle in order without repeating
+// a text that's already visible on screen.
+let skillsCursor = 0;
+
+function pickNextSkill() {
+  const active = new Set(activeReveals.map((w) => w.text));
+  for (let i = 0; i < skills.length; i++) {
+    const idx = (skillsCursor + i) % skills.length;
+    if (!active.has(skills[idx])) {
+      skillsCursor = (idx + 1) % skills.length;
+      return skills[idx];
+    }
+  }
+  return null; // every skill is currently active
+}
+
+// Spawn zone for skill words — relative to canvas internal size.
+// The canvas is displayed at 200% via CSS, so only canvas pixels in
+// [0..canvas.width/2] × [0..canvas.height/2] are actually on-screen.
+// These ratios target the right side of the visible viewport.
+// The TOP edge is overridden at spawn time by the real navbar height
+// (see getNavbarBottomCanvasY) so text never renders behind the fixed nav.
+const SPAWN_ZONE = {
+  xMin: 0.18, // ~36% of visible viewport
+  xMax: 0.46, // ~92% of visible viewport
+  yMin: 0.12, // baseline; effective top is max(this, navbar bottom + margins)
+  yMax: 0.47, // close to the bottom of the visible canvas area
+};
+
+// The navbar is position: fixed on top of the canvas. We measure its real
+// height from the DOM at spawn time and convert it to canvas internal
+// coordinates so the spawn zone always sits below it, regardless of viewport
+// size or CSS scaling of the canvas element.
+const headerEl = document.querySelector(".header");
+
+function getNavbarCanvasMetrics() {
+  const navHeight = headerEl ? headerEl.getBoundingClientRect().height : 80;
+  const rect = canvas.getBoundingClientRect();
+  const yScale = canvas.height / Math.max(rect.height, 1);
+  const navHeightCanvasY = navHeight * yScale;
+
+  return {
+    navBottomCanvasY: navHeightCanvasY,
+    navHeightCanvasY,
+  };
+}
+
+function spawnSkillWord() {
+  const text = pickNextSkill();
+  if (!text) return; // all skills currently on screen
+
+  // Dynamic top: keep text + glow strictly below the navbar.
+  const { navBottomCanvasY, navHeightCanvasY } = getNavbarCanvasMetrics();
+  const glowPadding = 22; // canvas px of safety for the glow
+
+  const zoneLeftColumn = Math.ceil((canvas.width * SPAWN_ZONE.xMin) / fontSize);
+  const zoneRightColumn = Math.floor((canvas.width * SPAWN_ZONE.xMax) / fontSize);
+  const zoneBottom = canvas.height * SPAWN_ZONE.yMax;
+
+  const zoneTopRow = MatrixSkillRain.getRevealStartRow({
+    canvasHeight: canvas.height,
+    fontSize,
+    zoneMinRatio: SPAWN_ZONE.yMin,
+    navBottomCanvasY,
+    navHeightCanvasY,
+    glowPadding,
+  });
+  const zoneBottomRow = Math.floor(zoneBottom / fontSize);
+  const maxStartColumn = Math.max(
+    zoneLeftColumn,
+    Math.min(zoneRightColumn - text.length, columns - text.length - 1)
+  );
+
+  let startColumn = 0;
+  let targetRow = 0;
+  let placed = false;
+  for (let attempt = 0; attempt < 14 && !placed; attempt++) {
+    startColumn =
+      zoneLeftColumn +
+      Math.floor(Math.random() * Math.max(maxStartColumn - zoneLeftColumn, 1));
+    targetRow =
+      zoneTopRow +
+      Math.floor(Math.random() * Math.max(zoneBottomRow - zoneTopRow, 1));
+
+    placed = !activeReveals.some((reveal) => {
+      const sameRow = Math.abs(reveal.targetRow - targetRow) <= 2;
+      const overlapsColumns =
+        startColumn < reveal.startColumn + reveal.text.length + 3 &&
+        startColumn + text.length + 3 > reveal.startColumn;
+      return sameRow && overlapsColumns;
+    });
+  }
+
+  if (!placed) {
+    // Roll the cursor back so this skill is picked again on the next tick
+    skillsCursor = (skillsCursor - 1 + skills.length) % skills.length;
+    return;
+  }
+
+  activeReveals.push(
+    MatrixSkillRain.createSkillReveal({
+      text,
+      startColumn,
+      targetRow,
+      now: performance.now(),
+    })
+  );
+}
+
+function pruneFinishedReveals(now) {
+  for (let i = activeReveals.length - 1; i >= 0; i--) {
+    if (now >= activeReveals[i].endsAt) {
+      activeReveals.splice(i, 1);
+    }
+  }
+}
+
+function getRevealForCell(column, row, now, randomGlyph) {
+  for (const reveal of activeReveals) {
+    const result = MatrixSkillRain.getRevealGlyph(
+      reveal,
+      column,
+      row,
+      now,
+      randomGlyph
+    );
+
+    if (result) {
+      return result;
+    }
+  }
+
+  return {
+    glyph: randomGlyph(),
+    phase: "rain",
+    alpha: 1,
+    glow: 0,
+  };
+}
+
+function applyRainStyle(revealGlyph) {
+  if (revealGlyph.phase === "readable") {
+    ctx.fillStyle = `rgba(220, 255, 220, ${revealGlyph.alpha})`;
+    ctx.shadowColor = "rgba(0, 255, 120, 0.9)";
+    ctx.shadowBlur = 10 * revealGlyph.glow;
+    return;
+  }
+
+  if (revealGlyph.phase === "forming") {
+    ctx.fillStyle = `rgba(80, 255, 120, ${revealGlyph.alpha})`;
+    ctx.shadowColor = "rgba(0, 255, 80, 0.55)";
+    ctx.shadowBlur = 5 * revealGlyph.glow;
+    return;
+  }
+
+  if (revealGlyph.phase === "dissolving") {
+    ctx.fillStyle = `rgba(0, 255, 80, ${0.35 + revealGlyph.alpha * 0.45})`;
+    ctx.shadowColor = "rgba(0, 255, 80, 0.45)";
+    ctx.shadowBlur = 6 * revealGlyph.glow;
+    return;
+  }
+
+  ctx.fillStyle = "#0F0";
+  ctx.shadowBlur = 0;
+}
+
+function drawRevealCells(now) {
+  // Draw fixed cells inside the same matrix grid while the rain keeps moving.
+  for (const reveal of activeReveals) {
+    for (const letter of reveal.letters) {
+      const revealGlyph = MatrixSkillRain.getRevealGlyph(
+        reveal,
+        letter.column,
+        letter.row,
+        now,
+        () => matrixArray[Math.floor(Math.random() * matrixArray.length)]
+      );
+
+      applyRainStyle(revealGlyph);
+
+      if (revealGlyph.phase !== "rain") {
+        ctx.fillText(
+          revealGlyph.glyph,
+          letter.column * fontSize,
+          letter.row * fontSize
+        );
+      }
+    }
+  }
+}
 
 function draw() {
   // Semi-transparent black background to create fade effect
-  ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = "transparent";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Draw the characters
-  ctx.fillStyle = "#0F0"; // Matrix green
+  const now = performance.now();
+  pruneFinishedReveals(now);
+
+  if (now >= nextWordAt && activeReveals.length < 4) {
+    spawnSkillWord();
+    // Next spawn: 650–1500ms later, enough time to notice each formation.
+    nextWordAt = now + 650 + Math.random() * 850;
+  }
+
+  // Draw the rain characters
+  ctx.fillStyle = "#0F0";
   ctx.font = fontSize + "px monospace";
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = "transparent";
 
   for (let i = 0; i < drops.length; i++) {
-    // Random character from matrix
-    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+    const row = drops[i];
+    const revealGlyph = getRevealForCell(
+      i,
+      row,
+      now,
+      () => matrixArray[Math.floor(Math.random() * matrixArray.length)]
+    );
 
-    // Draw the character
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    applyRainStyle(revealGlyph);
+    ctx.fillText(revealGlyph.glyph, i * fontSize, row * fontSize);
 
-    // Reset to top when reaching bottom
     if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     }
 
     drops[i]++;
   }
+
+  drawRevealCells(now);
 }
 
 // Animation loop
@@ -358,6 +582,11 @@ function animate() {
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  columns = Math.floor(canvas.width / fontSize);
+  drops.length = 0;
+  for (let x = 0; x < columns; x++) {
+    drops[x] = 1;
+  }
 });
 
 // Start animation
