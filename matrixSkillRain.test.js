@@ -88,18 +88,23 @@ test("getRevealColumnRange shifts long mobile labels left so they fit the visibl
   assert.ok(range.maxColumn + "JAVASCRIPT DEV".length <= Math.floor((390 * 0.46) / 10));
 });
 
-test("getRevealRowRange moves compact mobile reveals below the hero copy", () => {
+test("getRevealRowRange keeps mobile reveals inside the visible bottom half", () => {
+  // On ≤768px the canvas is bottom-pinned (height: 200%), so the visible portion
+  // of the canvas internal coords is its bottom half. Spawn ratios target that half.
   const range = getRevealRowRange({
     canvasHeight: 844,
     fontSize: 10,
-    zoneMinRatio: 0.34,
-    zoneMaxRatio: 0.47,
-    navBottomCanvasY: 28,
+    zoneMinRatio: 0.62,
+    zoneMaxRatio: 0.92,
+    // Mobile navBottom is past canvas.height/2 because the navbar sits in the
+    // visible bottom half once the canvas is pinned to .hero's bottom.
+    navBottomCanvasY: 450,
     navHeightCanvasY: 28,
     glowPadding: 22,
   });
 
-  assert.equal(range.minRow, 29);
-  assert.equal(range.maxRow, 39);
-  assert.ok(range.minRow >= Math.ceil((844 * 0.34) / 10));
+  assert.ok(range.minRow * 10 >= 844 * 0.5, "minRow lands in the visible bottom half");
+  assert.ok(range.minRow >= Math.ceil((450 + 28 + 22) / 10), "stays clear of the navbar");
+  assert.ok(range.maxRow >= range.minRow);
+  assert.ok(range.maxRow * 10 <= 844, "maxRow stays inside the canvas");
 });

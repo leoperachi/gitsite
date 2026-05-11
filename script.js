@@ -369,9 +369,12 @@ const SPAWN_ZONE = {
   yMax: 0.47, // close to the bottom of the visible canvas area
 };
 
-const COMPACT_MOBILE_SPAWN_ZONE = {
-  yMin: 0.34,
-  yMax: 0.47,
+// On viewports ≤768px the canvas is pinned to the bottom of `.hero` via CSS,
+// so the visible portion of the canvas internal coordinates is the bottom half.
+// These ratios target that visible bottom half.
+const MOBILE_SPAWN_ZONE = {
+  yMin: 0.62,
+  yMax: 0.92,
 };
 
 // The navbar is position: fixed on top of the canvas. We measure its real
@@ -385,9 +388,13 @@ function getNavbarCanvasMetrics() {
   const rect = canvas.getBoundingClientRect();
   const yScale = canvas.height / Math.max(rect.height, 1);
   const navHeightCanvasY = navHeight * yScale;
+  // Navbar is position: fixed at viewport top (y = 0..navHeight).
+  // Convert its bottom edge from viewport y → canvas internal y so this works
+  // regardless of where the canvas display element sits in the viewport.
+  const navBottomCanvasY = Math.max(0, (navHeight - rect.top) * yScale);
 
   return {
-    navBottomCanvasY: navHeightCanvasY,
+    navBottomCanvasY,
     navHeightCanvasY,
   };
 }
@@ -397,7 +404,6 @@ function spawnSkillWord() {
   if (!text) return; // all skills currently on screen
 
   const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
-  const isCompactMobileViewport = window.matchMedia("(max-width: 700px)").matches;
 
   // Dynamic top: keep text + glow strictly below the navbar.
   const { navBottomCanvasY, navHeightCanvasY } = getNavbarCanvasMetrics();
@@ -411,7 +417,7 @@ function spawnSkillWord() {
     textLength: text.length,
     totalColumns: columns,
   });
-  const rowZone = isCompactMobileViewport ? COMPACT_MOBILE_SPAWN_ZONE : SPAWN_ZONE;
+  const rowZone = isMobileViewport ? MOBILE_SPAWN_ZONE : SPAWN_ZONE;
   const rowRange = MatrixSkillRain.getRevealRowRange({
     canvasHeight: canvas.height,
     fontSize,
