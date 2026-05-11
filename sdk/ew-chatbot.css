@@ -71,9 +71,15 @@
 
 @media (max-width: 500px) {
     .ewcb-welcome-bubble {
-        right: 78px;
+        bottom: 38px;
+        right: 112px;
+        width: 178px;
         font-size: 0.95em;
-        max-width: 150px;
+        line-height: 1.35;
+        max-width: calc(100vw - 128px);
+        padding: 10px 14px;
+        text-align: center;
+        justify-content: center;
     }
 }
 

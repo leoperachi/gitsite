@@ -124,9 +124,57 @@
     return Math.ceil(topCanvasY / fontSize);
   }
 
+  function getRevealRowRange({
+    canvasHeight,
+    fontSize,
+    zoneMinRatio,
+    zoneMaxRatio,
+    navBottomCanvasY,
+    navHeightCanvasY,
+    glowPadding,
+  }) {
+    const minRow = getRevealStartRow({
+      canvasHeight,
+      fontSize,
+      zoneMinRatio,
+      navBottomCanvasY,
+      navHeightCanvasY,
+      glowPadding,
+    });
+    const maxRow = Math.max(minRow, Math.floor((canvasHeight * zoneMaxRatio) / fontSize));
+
+    return {
+      minRow,
+      maxRow,
+    };
+  }
+
+  function getRevealColumnRange({
+    canvasWidth,
+    fontSize,
+    zoneMinRatio,
+    zoneMaxRatio,
+    textLength,
+    totalColumns,
+  }) {
+    const preferredMinColumn = Math.ceil((canvasWidth * zoneMinRatio) / fontSize);
+    const visibleMaxColumn = Math.floor((canvasWidth * zoneMaxRatio) / fontSize);
+    const canvasMaxStartColumn = Math.max(0, totalColumns - textLength - 1);
+    const visibleMaxStartColumn = Math.max(0, visibleMaxColumn - textLength);
+    const maxColumn = Math.min(visibleMaxStartColumn, canvasMaxStartColumn);
+    const minColumn = Math.min(preferredMinColumn, maxColumn);
+
+    return {
+      minColumn,
+      maxColumn,
+    };
+  }
+
   return {
     createSkillReveal,
     getRevealGlyph,
+    getRevealColumnRange,
+    getRevealRowRange,
     getRevealStartRow,
   };
 });

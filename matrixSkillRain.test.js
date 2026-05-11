@@ -4,6 +4,8 @@ const assert = require("node:assert/strict");
 const {
   createSkillReveal,
   getRevealGlyph,
+  getRevealColumnRange,
+  getRevealRowRange,
   getRevealStartRow,
 } = require("./matrixSkillRain");
 
@@ -69,4 +71,35 @@ test("getRevealStartRow keeps reveal text at least one navbar height below the n
 
   assert.equal(row, 11);
   assert.ok(row >= Math.ceil((24 + 24 + 22) / 10));
+});
+
+test("getRevealColumnRange shifts long mobile labels left so they fit the visible canvas", () => {
+  const range = getRevealColumnRange({
+    canvasWidth: 390,
+    fontSize: 10,
+    zoneMinRatio: 0.18,
+    zoneMaxRatio: 0.46,
+    textLength: "JAVASCRIPT DEV".length,
+    totalColumns: 39,
+  });
+
+  assert.equal(range.minColumn, 3);
+  assert.equal(range.maxColumn, 3);
+  assert.ok(range.maxColumn + "JAVASCRIPT DEV".length <= Math.floor((390 * 0.46) / 10));
+});
+
+test("getRevealRowRange moves compact mobile reveals below the hero copy", () => {
+  const range = getRevealRowRange({
+    canvasHeight: 844,
+    fontSize: 10,
+    zoneMinRatio: 0.34,
+    zoneMaxRatio: 0.47,
+    navBottomCanvasY: 28,
+    navHeightCanvasY: 28,
+    glowPadding: 22,
+  });
+
+  assert.equal(range.minRow, 29);
+  assert.equal(range.maxRow, 39);
+  assert.ok(range.minRow >= Math.ceil((844 * 0.34) / 10));
 });
